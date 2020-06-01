@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: gcr.io/google-samples/hello-app:1.0
+        image: gcr.io/nice-gate-272207/vino:v1
         ports:
         - containerPort: 8080
