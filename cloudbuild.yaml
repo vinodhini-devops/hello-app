@@ -16,22 +16,17 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
   
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment/${_DEPLOYMENTNAME}', 'frontend=gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
-  
+
 #Create deployment using kubectl set
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['create', 'deployment', '${_DEPLOYMENTNAME}','--image=gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
+  args: ['create', 'deployment', '${_DEPLOYMENTNAME}${BUILD_ID}','--image=gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
 
 #Expose as Service using kubectl set
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['expose', 'deployment', '${_DEPLOYMENTNAME}', '--type=LoadBalancer', '--port=80', '--target-port=8080']
+  args: ['expose', 'deployment', '${_DEPLOYMENTNAME}${BUILD_ID}', '--type=LoadBalancer', '--port=80', '--target-port=8080']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
