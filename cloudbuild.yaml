@@ -56,8 +56,8 @@ steps:
 
 substitutions:
     #GCP Specific configuration. Please DON'T change anything
-    _PROJECT: noted-wares-278713
-    _ZONE: asia-east1-a
+    _PROJECT: nice-gate-272207
+    _ZONE: us-central1-c
     _GKE_CLUSTER: cluster-1	
 
 #Repository Specific configuration. DevOps can change this settings
